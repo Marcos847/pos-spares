@@ -1,8 +1,6 @@
 <template>
   <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-700 mb-2"
-      >Amount Paid (if any)</label
-    >
+    <label class="block text-sm font-medium text-gray-700 mb-2">Amount Paid (if any)</label>
     <input
       :value="modelValue"
       @input="$emit('update:modelValue', parseFloat($event.target.value) || 0)"
@@ -22,13 +20,14 @@
 defineProps({
   modelValue: {
     type: Number,
-    default: 0,
+    default: 0
   },
   total: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-defineEmits(["update:modelValue"]);
+defineEmits(['update:modelValue'])
 </script>
+

@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    v-if="showReceiptModal"
-  >
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" v-if="showReceiptModal">
     <div class="bg-white p-6 rounded-lg w-full max-w-md">
       <div id="receipt-content" class="space-y-4">
         <div class="text-center border-b pb-4">
@@ -10,7 +7,7 @@
           <p class="text-sm text-gray-600">Tuktuk Spare Parts</p>
           <p class="text-sm text-gray-600">Phone: 0720443773</p>
         </div>
-
+        
         <div class="space-y-2" v-if="currentReceipt">
           <div class="flex justify-between text-sm">
             <span>Receipt #:</span>
@@ -22,22 +19,16 @@
           </div>
           <div class="flex justify-between text-sm">
             <span>Customer:</span>
-            <span>{{ currentReceipt.customer_name || "Walk-in" }}</span>
+            <span>{{ currentReceipt.customer_name || 'Walk-in' }}</span>
           </div>
-
+          
           <div class="border-t pt-2">
-            <div
-              v-for="item in currentReceipt.items"
-              :key="item.id"
-              class="flex justify-between text-sm"
-            >
+            <div v-for="item in currentReceipt.items" :key="item.id" class="flex justify-between text-sm">
               <span>{{ item.name }} x{{ item.quantity }}</span>
-              <span
-                >KSh {{ (item.price * item.quantity).toLocaleString() }}</span
-              >
+              <span>KSh {{ (item.price * item.quantity).toLocaleString() }}</span>
             </div>
           </div>
-
+          
           <div class="border-t pt-2 space-y-1">
             <div class="flex justify-between text-sm">
               <span>Subtotal:</span>
@@ -80,9 +71,8 @@
 </template>
 
 <script setup>
-import { Printer } from "lucide-vue-next";
-import { useModals } from "@/Composables/useModals";
+import { Printer } from 'lucide-vue-next'
+import { useModals } from '@/Composables/useModals'
 
-const { showReceiptModal, closeReceiptModal, currentReceipt, printReceipt } =
-  useModals();
+const { showReceiptModal, closeReceiptModal, currentReceipt, printReceipt } = useModals()
 </script>

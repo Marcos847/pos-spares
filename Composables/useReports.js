@@ -1,10 +1,10 @@
-import { ref } from "vue";
+import { ref, computed } from "vue"
 
-export function useReports() {
-  const reportType = ref("daily");
-  const reportStartDate = ref("");
-  const reportEndDate = ref("");
-  const isGenerating = ref(false);
+export const useReports = () => {
+  const reportType = ref("daily")
+  const reportStartDate = ref("")
+  const reportEndDate = ref("")
+  const isGenerating = ref(false)
 
   const reportData = ref({
     totalSales: 45000,
@@ -30,8 +30,17 @@ export function useReports() {
         vat: 288,
         date: "2024-01-15",
       },
+      {
+        id: 3,
+        transaction_id: "TXN003",
+        customer_name: "Jane Smith",
+        total: 3200,
+        payment_method: "Credit",
+        vat: 512,
+        date: "2024-01-14",
+      },
     ],
-  });
+  })
 
   const topProducts = ref([
     {
@@ -52,67 +61,105 @@ export function useReports() {
       quantity_sold: 25,
       revenue: 7500,
     },
-  ]);
+    {
+      id: 4,
+      name: "Spark Plug",
+      quantity_sold: 18,
+      revenue: 8100,
+    },
+  ])
+
+  // Computed properties for better reactivity
+  const totalTransactions = computed(() => reportData.value.transactions?.length || 0)
+  const averageSaleAmount = computed(() => {
+    const transactions = reportData.value.transactions || []
+    if (transactions.length === 0) return 0
+    const total = transactions.reduce((sum, t) => sum + t.total, 0)
+    return Math.round(total / transactions.length)
+  })
 
   const initializeDates = () => {
-    const today = new Date();
-    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const today = new Date()
+    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000)
 
-    reportStartDate.value = lastWeek.toISOString().split("T")[0];
-    reportEndDate.value = today.toISOString().split("T")[0];
-  };
+    reportStartDate.value = lastWeek.toISOString().split("T")[0]
+    reportEndDate.value = today.toISOString().split("T")[0]
+  }
 
   const generateReport = async () => {
-    isGenerating.value = true;
+    isGenerating.value = true
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000))
 
-    // Update report data based on filters
-    console.log("Generating report:", {
-      type: reportType.value,
-      startDate: reportStartDate.value,
-      endDate: reportEndDate.value,
-    });
+      console.log("Generating report:", {
+        type: reportType.value,
+        startDate: reportStartDate.value,
+        endDate: reportEndDate.value,
+      })
 
-    isGenerating.value = false;
-  };
+      // In a real app, you would fetch data from API here
+      // reportData.value = await $fetch('/api/reports', { ... })
+
+      alert("Report generated successfully!")
+    } catch (error) {
+      console.error("Error generating report:", error)
+      alert("Error generating report. Please try again.")
+    } finally {
+      isGenerating.value = false
+    }
+  }
 
   const exportReport = () => {
-    // Create CSV content
-    const csvContent = [
-      ["Date", "Transaction ID", "Customer", "Amount", "Payment Method", "VAT"],
-      ...reportData.value.transactions.map((t) => [
-        t.date,
-        t.transaction_id,
-        t.customer_name || "Walk-in",
-        t.total,
-        t.payment_method,
-        t.vat,
-      ]),
-    ]
-      .map((row) => row.join(","))
-      .join("\n");
+    try {
+      // Create CSV content
+      const csvContent = [
+        ["Date", "Transaction ID", "Customer", "Amount", "Payment Method", "VAT"],
+        ...reportData.value.transactions.map((t) => [
+          t.date,
+          t.transaction_id,
+          t.customer_name || "Walk-in",
+          t.total,
+          t.payment_method,
+          t.vat,
+        ]),
+      ]
+        .map((row) => row.join(","))
+        .join("\n")
 
-    // Download CSV
-    const blob = new Blob([csvContent], { type: "text/csv" });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `sales-report-${new Date().toISOString().split("T")[0]}.csv`;
-    a.click();
-    window.URL.revokeObjectURL(url);
-  };
+      // Download CSV (client-side only)
+      if (process.client) {
+        const blob = new Blob([csvContent], { type: "text/csv" })
+        const url = window.URL.createObjectURL(blob)
+        const a = document.createElement("a")
+        a.href = url
+        a.download = `sales-report-${new Date().toISOString().split("T")[0]}.csv`
+        a.click()
+        window.URL.revokeObjectURL(url)
+      }
+    } catch (error) {
+      console.error("Error exporting report:", error)
+      alert("Error exporting report. Please try again.")
+    }
+  }
 
   return {
+    // State
     reportType,
     reportStartDate,
     reportEndDate,
     isGenerating,
     reportData,
     topProducts,
+
+    // Computed
+    totalTransactions,
+    averageSaleAmount,
+
+    // Actions
     initializeDates,
     generateReport,
     exportReport,
-  };
-};
+  }
+}

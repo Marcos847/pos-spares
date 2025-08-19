@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-6">
     <h2 class="text-2xl font-bold text-gray-900">Sales Reports & Analytics</h2>
-
+    
     <!-- Report Filters -->
     <ReportsFilters />
 
@@ -17,14 +17,15 @@
 </template>
 
 <script setup>
-import { useReports } from "~/Composables/useReports";
+import { useReports } from '~/Composables/useReports'
+import { definePageMeta, onMounted } from '#imports'
 
 definePageMeta({
-  title: "Reports",
-});
+  title: 'Reports'
+})
 
 onMounted(() => {
-  const { initializeDates } = useReports();
-  initializeDates();
-});
+  const { initializeDates } = useReports()
+  initializeDates()
+})
 </script>

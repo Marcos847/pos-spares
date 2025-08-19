@@ -19,47 +19,39 @@
 </template>
 
 <script setup>
-import {
-  DollarSign,
-  Package,
-  AlertTriangle,
-  CreditCard,
-} from "lucide-vue-next";
-import { useDashboard } from "@/Composables/useDashboard";
-import { computed } from "vue";
+import { DollarSign, Package, AlertTriangle, CreditCard } from 'lucide-vue-next'
+import { useDashboard } from '@/Composables/useDashboard'
+import { computed } from 'vue'
 
-const { dashboardStats } = useDashboard();
+const { dashboardStats } = useDashboard()
 
 const stats = computed(() => [
   {
     title: "Today's Sales",
     value: `KSh ${dashboardStats.value.todaysSales?.toLocaleString() || 0}`,
     icon: DollarSign,
-    bgColor: "bg-green-100",
-    iconColor: "text-green-600",
+    bgColor: 'bg-green-100',
+    iconColor: 'text-green-600'
   },
   {
-    title: "Total Products",
+    title: 'Total Products',
     value: dashboardStats.value.totalProducts || 0,
     icon: Package,
-    bgColor: "bg-blue-100",
-    iconColor: "text-blue-600",
+    bgColor: 'bg-blue-100',
+    iconColor: 'text-blue-600'
   },
   {
-    title: "Low Stock",
+    title: 'Low Stock',
     value: dashboardStats.value.lowStockCount || 0,
     icon: AlertTriangle,
-    bgColor: "bg-yellow-100",
-    iconColor: "text-yellow-600",
+    bgColor: 'bg-yellow-100',
+    iconColor: 'text-yellow-600'
   },
   {
-    title: "Credit Sales",
-    value: `KSh ${
-      dashboardStats.value.totalCreditSales?.toLocaleString() || 0
-    }`,
+    title: 'Credit Sales',
+    value: `KSh ${dashboardStats.value.totalCreditSales?.toLocaleString() || 0}`,
     icon: CreditCard,
-    bgColor: "bg-red-100",
-    iconColor: "text-red-600",
-  },
-]);
-</script>
+    bgColor: 'bg-red-100',
+    iconColor: 'text-red-600'
+  }
+])

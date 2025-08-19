@@ -1,15 +1,10 @@
 <template>
-  <div
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    v-if="showMpesaModal"
-  >
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" v-if="showMpesaModal">
     <div class="bg-white p-6 rounded-lg w-full max-w-md">
       <h3 class="text-lg font-medium text-gray-900 mb-4">M-Pesa Payment</h3>
       <div class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Customer Phone Number</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Customer Phone Number</label>
           <input
             v-model="mpesaPhoneNumber"
             type="tel"
@@ -51,25 +46,25 @@
 </template>
 
 <script setup>
-import { useModals } from "@/Composables/useModals";
-import { useCart } from "@/Composables/useCart";
+import { useModals } from '@/Composables/useModals'
+import { useCart } from '@/Composables/useCart'
 
-const { showMpesaModal, closeMpesaModal, mpesaPhoneNumber } = useModals();
-const { total } = useCart();
+const { showMpesaModal, closeMpesaModal, mpesaPhoneNumber } = useModals()
+const { total } = useCart()
 
 const sendMpesaPrompt = async () => {
   if (!mpesaPhoneNumber.value) {
-    alert("Please enter customer phone number");
-    return;
+    alert('Please enter customer phone number')
+    return
   }
 
   try {
     // API call to initiate M-Pesa STK push would go here
-    alert(`M-Pesa payment prompt sent to ${mpesaPhoneNumber.value}`);
-    closeMpesaModal();
-    mpesaPhoneNumber.value = "";
+    alert(`M-Pesa payment prompt sent to ${mpesaPhoneNumber.value}`)
+    closeMpesaModal()
+    mpesaPhoneNumber.value = ''
   } catch (error) {
-    alert("Error sending M-Pesa prompt. Please try again.");
+    alert('Error sending M-Pesa prompt. Please try again.')
   }
-};
+}
 </script>

@@ -1,8 +1,6 @@
 <template>
   <div class="mb-6">
-    <label class="block text-sm font-medium text-gray-700 mb-2"
-      >Payment Method</label
-    >
+    <label class="block text-sm font-medium text-gray-700 mb-2">Payment Method</label>
     <div class="grid grid-cols-2 gap-2">
       <button
         v-for="method in paymentMethods"
@@ -12,7 +10,7 @@
           'px-3 py-2 text-sm rounded-md border transition-colors',
           modelValue === method
             ? 'bg-blue-600 text-white border-blue-600'
-            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50',
+            : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
         ]"
       >
         {{ method }}
@@ -25,11 +23,11 @@
 defineProps({
   modelValue: {
     type: String,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-defineEmits(["update:modelValue"]);
+defineEmits(['update:modelValue'])
 
-const paymentMethods = ["Cash", "M-Pesa", "Bank Transfer", "Credit"];
+const paymentMethods = ['Cash', 'M-Pesa', 'Bank Transfer', 'Credit']
 </script>

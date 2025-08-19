@@ -7,11 +7,7 @@
       class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
     >
       <option value="">Walk-in Customer</option>
-      <option
-        v-for="customer in customers"
-        :key="customer.id"
-        :value="customer.id"
-      >
+      <option v-for="customer in customers" :key="customer.id" :value="customer.id">
         {{ customer.name }} - {{ customer.phone }}
       </option>
     </select>
@@ -19,16 +15,16 @@
 </template>
 
 <script setup>
-import { useCustomers } from "@/Composables/useCustomers";
+import { useCustomers } from '@/Composables/useCustomers'
 
-const { customers } = useCustomers();
+const { customers } = useCustomers()
 
 defineProps({
   modelValue: {
     type: [String, Number],
-    default: "",
-  },
-});
+    default: ''
+  }
+})
 
-defineEmits(["update:modelValue"]);
+defineEmits(['update:modelValue'])
 </script>

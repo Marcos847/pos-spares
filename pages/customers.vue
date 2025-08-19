@@ -27,12 +27,13 @@
 </template>
 
 <script setup>
-import { Plus } from "lucide-vue-next";
-import { useCustomers } from "@/Composables/useCustomers";
+import { Plus } from 'lucide-vue-next'
+import { useCustomers } from '@/Composables/useCustomers'
+import { definePageMeta } from '#imports'
 
 definePageMeta({
-  title: "Customers",
-});
+  title: 'Customers'
+})
 
-const { searchQuery, openCustomerForm } = useCustomers();
+const { searchQuery, openCustomerForm } = useCustomers()
 </script>

@@ -1,17 +1,12 @@
 <template>
-  <div
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    v-if="showProductForm"
-  >
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" v-if="showProductForm">
     <div class="bg-white p-6 rounded-lg w-full max-w-md">
       <h3 class="text-lg font-medium text-gray-900 mb-4">
-        {{ editingProduct ? "Edit Product" : "Add New Product" }}
+        {{ editingProduct ? 'Edit Product' : 'Add New Product' }}
       </h3>
       <form @submit.prevent="saveProduct" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Product Name</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Product Name</label>
           <input
             v-model="productForm.name"
             type="text"
@@ -20,9 +15,7 @@
           />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >SKU</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">SKU</label>
           <input
             v-model="productForm.sku"
             type="text"
@@ -31,9 +24,7 @@
           />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Category</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
           <select
             v-model="productForm.category"
             required
@@ -49,9 +40,7 @@
         </div>
         <div class="grid grid-cols-2 gap-4">
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2"
-              >Price (KSh)</label
-            >
+            <label class="block text-sm font-medium text-gray-700 mb-2">Price (KSh)</label>
             <input
               v-model="productForm.price"
               type="number"
@@ -62,9 +51,7 @@
             />
           </div>
           <div>
-            <label class="block text-sm font-medium text-gray-700 mb-2"
-              >Stock Quantity</label
-            >
+            <label class="block text-sm font-medium text-gray-700 mb-2">Stock Quantity</label>
             <input
               v-model="productForm.stock"
               type="number"
@@ -75,9 +62,7 @@
           </div>
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Minimum Stock Level</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Minimum Stock Level</label>
           <input
             v-model="productForm.min_stock"
             type="number"
@@ -87,9 +72,7 @@
           />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Description</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
           <textarea
             v-model="productForm.description"
             rows="3"
@@ -108,7 +91,7 @@
             type="submit"
             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
-            {{ editingProduct ? "Update" : "Add" }} Product
+            {{ editingProduct ? 'Update' : 'Add' }} Product
           </button>
         </div>
       </form>
@@ -117,13 +100,13 @@
 </template>
 
 <script setup>
-import { useProducts } from "@/Composables/useProducts";
+import { useProducts } from '@/Composables/useProducts'
 
-const {
-  showProductForm,
-  closeProductForm,
-  productForm,
-  editingProduct,
-  saveProduct,
-} = useProducts();
+const { 
+  showProductForm, 
+  closeProductForm, 
+  productForm, 
+  editingProduct, 
+  saveProduct 
+} = useProducts()
 </script>

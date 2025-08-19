@@ -19,15 +19,15 @@
 defineProps({
   subtotal: {
     type: Number,
-    required: true,
+    required: true
   },
   vat: {
     type: Number,
-    required: true,
+    required: true
   },
   total: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 </script>

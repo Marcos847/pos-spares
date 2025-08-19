@@ -1,17 +1,12 @@
 <template>
-  <div
-    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
-    v-if="showCustomerForm"
-  >
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" v-if="showCustomerForm">
     <div class="bg-white p-6 rounded-lg w-full max-w-md">
       <h3 class="text-lg font-medium text-gray-900 mb-4">
-        {{ editingCustomer ? "Edit Customer" : "Add New Customer" }}
+        {{ editingCustomer ? 'Edit Customer' : 'Add New Customer' }}
       </h3>
       <form @submit.prevent="saveCustomer" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Full Name</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
           <input
             v-model="customerForm.name"
             type="text"
@@ -20,9 +15,7 @@
           />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Phone Number</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
           <input
             v-model="customerForm.phone"
             type="tel"
@@ -31,9 +24,7 @@
           />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Email (Optional)</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Email (Optional)</label>
           <input
             v-model="customerForm.email"
             type="email"
@@ -41,9 +32,7 @@
           />
         </div>
         <div>
-          <label class="block text-sm font-medium text-gray-700 mb-2"
-            >Address</label
-          >
+          <label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
           <textarea
             v-model="customerForm.address"
             rows="3"
@@ -62,7 +51,7 @@
             type="submit"
             class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
-            {{ editingCustomer ? "Update" : "Add" }} Customer
+            {{ editingCustomer ? 'Update' : 'Add' }} Customer
           </button>
         </div>
       </form>
@@ -71,13 +60,13 @@
 </template>
 
 <script setup>
-import { useCustomers } from "@/Composables/useCustomers";
+import { useCustomers } from '@/Composables/useCustomers'
 
-const {
-  showCustomerForm,
-  closeCustomerForm,
-  customerForm,
-  editingCustomer,
-  saveCustomer,
-} = useCustomers();
+const { 
+  showCustomerForm, 
+  closeCustomerForm, 
+  customerForm, 
+  editingCustomer, 
+  saveCustomer 
+} = useCustomers()
 </script>

@@ -25,11 +25,7 @@
           class="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
         >
           <option value="">All Categories</option>
-          <option
-            v-for="category in categories"
-            :key="category"
-            :value="category"
-          >
+          <option v-for="category in categories" :key="category" :value="category">
             {{ category }}
           </option>
         </select>
@@ -51,18 +47,19 @@
 </template>
 
 <script setup>
-import { Plus } from "lucide-vue-next";
-import { useProducts } from "@/Composables/useProducts";
+import { Plus } from 'lucide-vue-next'
+import { useProducts } from '@/Composables/useProducts'
+import { definePageMeta } from '#imports'
 
 definePageMeta({
-  title: "Products",
-});
+  title: 'Products'
+})
 
-const {
-  searchQuery,
-  selectedCategory,
-  stockFilter,
-  categories,
-  openProductForm,
-} = useProducts();
+const { 
+  searchQuery, 
+  selectedCategory, 
+  stockFilter, 
+  categories, 
+  openProductForm 
+} = useProducts()
 </script>

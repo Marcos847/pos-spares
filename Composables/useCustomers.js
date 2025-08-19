@@ -1,107 +1,28 @@
-import { ref, computed } from "vue";
+import { computed } from "vue"
+import { useCustomersStore } from "~/stores/customers"
 
-export function useCustomers() {
-  const customers = ref([
-    {
-      id: 1,
-      name: "John Doe",
-      phone: "0712345678",
-      email: "john@example.com",
-      address: "Nairobi, Kenya",
-      totalPurchases: 15000,
-      outstandingCredit: 2500,
-    },
-    {
-      id: 2,
-      name: "Jane Smith",
-      phone: "0723456789",
-      email: "jane@example.com",
-      address: "Mombasa, Kenya",
-      totalPurchases: 8500,
-      outstandingCredit: 0,
-    },
-  ]);
-
-  const searchQuery = ref("");
-  const showCustomerForm = ref(false);
-  const editingCustomer = ref(null);
-
-  const customerForm = ref({
-    name: "",
-    phone: "",
-    email: "",
-    address: "",
-  });
-
-  const filteredCustomers = computed(() => {
-    if (!searchQuery.value) return customers.value;
-
-    return customers.value.filter(
-      (c) =>
-        c.name.toLowerCase().includes(searchQuery.value.toLowerCase()) ||
-        c.phone.includes(searchQuery.value) ||
-        c.email.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-  });
-
-  const openCustomerForm = (customer = null) => {
-    if (customer) {
-      editingCustomer.value = customer;
-      customerForm.value = { ...customer };
-    } else {
-      editingCustomer.value = null;
-      customerForm.value = {
-        name: "",
-        phone: "",
-        email: "",
-        address: "",
-      };
-    }
-    showCustomerForm.value = true;
-  };
-
-  const closeCustomerForm = () => {
-    showCustomerForm.value = false;
-    editingCustomer.value = null;
-  };
-
-  const saveCustomer = () => {
-    if (editingCustomer.value) {
-      // Update existing customer
-      const index = customers.value.findIndex(
-        (c) => c.id === editingCustomer.value.id
-      );
-      if (index !== -1) {
-        customers.value[index] = { ...customerForm.value };
-      }
-    } else {
-      // Add new customer
-      const newCustomer = {
-        ...customerForm.value,
-        id: Date.now(),
-        totalPurchases: 0,
-        outstandingCredit: 0,
-      };
-      customers.value.push(newCustomer);
-    }
-    closeCustomerForm();
-  };
-
-  const deleteCustomer = (id) => {
-    if (confirm("Are you sure you want to delete this customer?")) {
-      customers.value = customers.value.filter((c) => c.id !== id);
-    }
-  };
+export const useCustomers = () => {
+  const customersStore = useCustomersStore()
 
   return {
-    customers: filteredCustomers,
-    searchQuery,
-    showCustomerForm,
-    editingCustomer,
-    customerForm,
-    openCustomerForm,
-    closeCustomerForm,
-    saveCustomer,
-    deleteCustomer,
-  };
-};
+    // State
+    customers: computed(() => customersStore.filteredCustomers),
+    allCustomers: computed(() => customersStore.customers),
+    searchQuery: computed({
+      get: () => customersStore.searchQuery,
+      set: (value) => customersStore.setSearchQuery(value),
+    }),
+    showCustomerForm: computed(() => customersStore.showCustomerForm),
+    editingCustomer: computed(() => customersStore.editingCustomer),
+    customerForm: computed(() => customersStore.customerForm),
+
+    // Getters
+    totalOutstandingCredit: computed(() => customersStore.totalOutstandingCredit),
+
+    // Actions
+    openCustomerForm: customersStore.openCustomerForm,
+    closeCustomerForm: customersStore.closeCustomerForm,
+    saveCustomer: customersStore.saveCustomer,
+    deleteCustomer: customersStore.deleteCustomer,
+  }
+}
